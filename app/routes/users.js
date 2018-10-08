@@ -16,6 +16,6 @@ router.get('/',passport.authenticate('jwt',{session:false}),userCtrl.getUser);
 
 module.exports = router;
 // module.exports = router;
-module.exports = router;
+//module.exports = router;
 // module.exports = router;
 // module.exports = router;
