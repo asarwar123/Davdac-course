@@ -15,3 +15,7 @@ router.post('/login',userCtrl.loginUser);
 router.get('/',passport.authenticate('jwt',{session:false}),userCtrl.getUser);
 
 module.exports = router;
+// module.exports = router;
+// module.exports = router;
+// module.exports = router;
+// module.exports = router;
