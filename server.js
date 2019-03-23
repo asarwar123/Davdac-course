@@ -11,36 +11,31 @@ var http = require('http'),
     ExtractJwt = require('passport-jwt').ExtractJwt,
     User = require('./app/models/users');
 
-// http.createServer(function (req, res) {
-//     res.writeHead(200, {'Content-Type': 'text/html'});
-//     res.end('Hello World!');
-// }).listen(8000);
-
 var app = express();
 app.use(helmet());
 app.use(cors());
 app.use(bodyparser.json());
+app.use(require('./app/routes/routes'));
 
 //Passport Setup
 
-var opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = config.jwtsecret;
+ var opts = {};
+ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+ opts.secretOrKey = config.jwtsecret;
 
 passport.use(new JwtStrategy(opts,function(jwt_payload,done){
     User.findById(jwt_payload.id,function(err,user){
-        if(err)
-        {
+
+        if(err){
             return done(err,false);
         }
         if(user){
-            return(null,true);            
-        }else
-        {
-            return(null,false);
+            return done(null,user);            
+        }else{
+            return done(null,false);
         }
 
-    })
+    });
 }));
 
 app.use(passport.initialize());
@@ -60,8 +55,6 @@ if (config.env != 'production') {
         format: winston.format.simple()
     }));
 }
-
-app.use(require('./app/routes/routes'));
 
 app.listen(port, function (err) {
     logger.info('listening at http://localhost:' + port);

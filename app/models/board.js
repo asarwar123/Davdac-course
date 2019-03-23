@@ -1,8 +1,24 @@
 var mongoose = require('mongoose');
+var timestamps = require('mongoose-timestamp');
 
-var boardschema = new mongoose.Schema({
+// Defines the collection Boards
+var boardSchema = new mongoose.Schema({
     name: String,
-    Desc: String
+    desc: String,
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    tasks: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Task'
+    }],
+    users: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+    }]
 });
 
-module.exports = mongoose.model('Board', boardschema);
+boardSchema.plugin(timestamps);
+
+module.exports = mongoose.model('Board', boardSchema);
