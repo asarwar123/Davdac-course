@@ -1,9 +1,26 @@
+<ion-split-pane>
+<ion-menu contentId="contents">
 <ion-header>
   <ion-toolbar>
-    <ion-title>menu</ion-title>
+    <ion-title>
+      Menu
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+      <ion-item [routerLink]="p.url" routerDirection="root">
+        {{p.title}}
+      </ion-item>
+      <ion-item routerLink="/login" routerDirection="root">
+          Logout
+        </ion-item>
+    </ion-menu-toggle>
+  </ion-list>
 </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="contents" main></ion-router-outlet>\
+</ion-split-pane>

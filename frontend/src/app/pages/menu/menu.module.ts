@@ -10,7 +10,10 @@ import { MenuPage } from './menu.page';
 const routes: Routes = [
   {
     path: '',
-    component: MenuPage
+    component: MenuPage,
+    children: [
+      { path: 'boards', loadChildren: './pages/boards/boards.module#BoardsPageModule' }
+    ]
   }
 ];
 
@@ -23,4 +26,4 @@ const routes: Routes = [
   ],
   declarations: [MenuPage]
 })
-export class MenuPageModule {}
+export class MenuPageModule { }
